@@ -272,31 +272,6 @@ func loadFromDatastore(c context.Context, kind string,
 	return nil
 }
 
-// remove expired sessions in the datastore. you can call this function
-// from a cron job.
-//
-// sample handler config in app.yaml:
-// handlers:
-// - url: /tasks/removeExpiredSessions
-//   script: _go_app
-//   login: admin
-// - url: /.*
-//   script: _go_app
-//
-// handler registration code:
-// http.HandleFunc("/tasks/removeExpiredSessions", removeExpiredSessionsHandler)
-//
-// sample handler:
-// func removeExpiredSessionsHandler(w http.ResponseWriter, r *http.Request) {
-//	c := appengine.NewContext(r)
-//	gaesessions.RemoveExpiredDatastoreSessions(c, "")
-// }
-//
-// sample cron.yaml:
-// cron:
-// - description: expired session removal job
-//   url: /tasks/removeExpiredSessions
-//   schedule: every 1 minutes
 func RemoveExpiredDatastoreSessions(c context.Context, kind string) error {
 	keys, err := findExpiredDatastoreSessionKeys(c, kind)
 	if err != nil {
