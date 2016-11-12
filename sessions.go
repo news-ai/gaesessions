@@ -19,6 +19,8 @@ import (
 
 	"golang.org/x/net/context"
 
+	"github.com/qedus/nds"
+
 	"github.com/gorilla/securecookie"
 	"github.com/gorilla/sessions"
 )
@@ -300,7 +302,7 @@ func RemoveExpiredDatastoreSessions(c context.Context, kind string) error {
 	if err != nil {
 		return err
 	}
-	return datastore.DeleteMulti(c, keys)
+	return nds.DeleteMulti(c, keys)
 }
 
 func findExpiredDatastoreSessionKeys(c context.Context, kind string) (keys []*datastore.Key, err error) {
